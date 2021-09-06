@@ -1,0 +1,20 @@
+{
+  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+  "editor.formatOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  "cSpell.words": [
+    "Projectable",
+    "betweeni",
+    "betweenx",
+    "clonedeep",
+    "consts",
+    "datetime",
+    "differencewith",
+    "firstname",
+    "lastname",
+    "nany",
+    "projectables",
+    "testables"
+  ],
+  
+}
