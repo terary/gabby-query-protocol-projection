@@ -1,6 +1,6 @@
 {
   "name": "gabby-query-protocol-projection",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "description": "Projection (Field Select) Lib",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "test": "jest",
+    "commit": "cz",
     "test:all": "npm run test -- --watchAll=false --verbose",
     "coverage": "npm run test -- --watchAll=false --verbose --coverage  --collectCoverageFrom=src/**/*.ts* ",
     "gabby:build": "rm -rf dist && NODE_ENV=production  tsc -p tsconfig.dist.json",
