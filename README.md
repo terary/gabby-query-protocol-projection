@@ -1,15 +1,22 @@
-[Gabby Query Protocol Project site](https://terary.github.io/gabby-query-protocol-www/)
-
-[This Repo's docs](https://terary.github.io/gabby-query-protocol-lib/)
+[This Repo's docs](https://terary.github.io/gabby-query-protocol-projection/)
 
 # gabby-query-protocol-projection
 
 ### Description
 
-This project was forked from Gabby Query Protocol Lib. The only relation the two projects share is that both will likely get
-description information from the same source.
-`SELECT` fields will likely be a union-set of
-`WHERE` fields.
+This project was forked from Gabby Query Protocol Lib.
+
+This project is focused on building tools to assist in field selections.
+
+### terminology
+
+**projection** - a field, or column, or similar, or a collection thereof.
+Possible uses of a projection:
+
+- `SELECT [projection]`
+- `ORDER BY [projection]`
+- record definition
+- non-SQL column definition
 
 ### npm run
 

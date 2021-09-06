@@ -1,6 +1,6 @@
 {
   "name": "gabby-query-protocol-projection",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.2",
   "description": "Projection (Field Select) Lib",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -24,6 +24,11 @@
   ],
   "author": "T. Chambers",
   "license": "ISC",
+  "homepage": "https://terary.github.io/gabby-query-protocol-projection/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/terary/gabby-query-protocol-projection"
+  },
   "devDependencies": {
     "@tsconfig/node16": "^1.0.2",
     "@types/jest": "^26.0.24",
