@@ -1,12 +1,48 @@
-[This Repo's docs](https://terary.github.io/gabby-query-protocol-projection/)
-
 # gabby-query-protocol-projection
+
+[![Build Status](https://app.travis-ci.com/terary/typescript-travis-trial-do-not-use.svg?branch=main)](https://app.travis-ci.com/terary/typescript-travis-trial-do-not-use)
+
+Utility to assist with field selection routines.
+
+## Installation
+
+Using npm:
+
+`$ npm install gabby-query-protocol-projection`
 
 ### Description
 
-This project was forked from Gabby Query Protocol Lib.
+[This Repo's docs](https://terary.github.io/gabby-query-protocol-projection/)
 
-This project is focused on building tools to assist in field selections.
+[Project's docs](https://terary.github.io/gabby-query-protocol-www/)
+
+## Example
+
+Simple usage:
+
+```ts
+import { ProjectionEditorFactory } from "gabby-query-protocol-projection";
+import { EXAMPLE_JSON_BLUE_SKIES } from "gabby-query-protocol-projection";
+
+const { projectionJson: projectionItemsJson } = EXAMPLE_JSON_BLUE_SKIES;
+const { projectableSubjectDictionaryJson } = EXAMPLE_JSON_BLUE_SKIES;
+
+export const exampleProjectionEditor = ProjectionEditorFactory.fromJson({
+  projectionItemsJson,
+  projectableSubjectDictionaryJson,
+});
+
+const projectionItemId = exampleProjectionEditor.addSubject({
+  label: "My New Projection Item",
+  subjectId: "lastname",
+  columnOrder: 1000,
+  sortOrder: -1,
+});
+
+exampleProjectionEditor.updateSubject(projectionItemId, { columnOrder: 10 });
+
+console.log(exampleProjectionEditor.getProjectionOrderByColumPosition());
+```
 
 ### terminology
 
