@@ -10,6 +10,12 @@ import { IProjectionEditor } from "./IProjectionEditor";
 import { Validators } from "../validators";
 import { TProjectionPropertiesJson } from "./type";
 
+/**
+ * Example usage:
+ * [[include:ExampleProjectionEditor.html]]
+ * [[include:ExampleProjectionEditor2.html]]
+ * [[include:ExampleProjectionEditor3.html]]
+ */
 export class Projection implements IProjectionEditor {
   private _projections: TProjectionDictionary = {};
 
