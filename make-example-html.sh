@@ -37,8 +37,8 @@ do
     htmlFileName=${wholeFileName/.ts/.html}
     echo "Including whole file: '$wholeFileName'"
 
-    echo $HTML_CODE_SNIPPET_BEGIN >> $htmlFileName;
-    cat $wholeFileName > $htmlFileName
+    echo $HTML_CODE_SNIPPET_BEGIN > $htmlFileName;
+    cat $wholeFileName >> $htmlFileName
     echo $HTML_CODE_SNIPPET_END >> $htmlFileName;    
 done
 
