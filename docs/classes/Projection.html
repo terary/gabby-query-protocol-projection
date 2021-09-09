@@ -65,6 +65,49 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Example usage:
+							import { ProjectionEditorFactory } from &quot;../src&quot;;
+						import { EXAMPLE_JSON_BLUE_SKIES } from &quot;../src&quot;;</p>
+						<p>const { projectionJson: projectionItemsJson } = EXAMPLE_JSON_BLUE_SKIES;
+						const { projectableSubjectDictionaryJson } = EXAMPLE_JSON_BLUE_SKIES;</p>
+						<p>export const exampleProjectionEditor = ProjectionEditorFactory.fromJson({
+							projectionItemsJson,
+							projectableSubjectDictionaryJson,
+						});</p>
+						<p>const projectionItemId = exampleProjectionEditor.addSubject({
+							label: &quot;My New Projection Item&quot;,
+							subjectId: &quot;lastname&quot;,
+							columnOrder: 1000,
+							sortOrder: -1,
+						});</p>
+						<p>exampleProjectionEditor.updateSubject(projectionItemId, { columnOrder: 10 });</p>
+						<p>console.log(exampleProjectionEditor.getProjectionOrderByColumPosition());
+						</code></pre></p>
+						<pre><code>
+const projectionItemId = exampleProjectionEditor.addSubject({
+  label: "My New Projection Item",
+  subjectId: "lastname",
+  columnOrder: 1000,
+  sortOrder: -1,
+});
+</code></pre>
+						<pre><code>
+// something new a different - once
+const x = 3;
+// something new a different - twice
+const projectionItemId = exampleProjectionEditor.addSubject({
+  label: "My New Projection Item",
+  subjectId: "lastname",
+  columnOrder: 1000,
+  sortOrder: -1,
+});
+</code></pre>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -129,7 +172,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L20">ProjectionEditor/Projection.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L26">ProjectionEditor/Projection.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -151,7 +194,7 @@
 					<div class="tsd-signature tsd-kind-icon">_key<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L18">ProjectionEditor/Projection.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L24">ProjectionEditor/Projection.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -161,7 +204,7 @@
 					<div class="tsd-signature tsd-kind-icon">_projectable<wbr>Subjects<span class="tsd-signature-symbol">:</span> <a href="../interfaces/IProjectableSubjectDictionary.html" class="tsd-signature-type" data-tsd-kind="Interface">IProjectableSubjectDictionary</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L16">ProjectionEditor/Projection.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L22">ProjectionEditor/Projection.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -171,7 +214,7 @@
 					<div class="tsd-signature tsd-kind-icon">_projections<span class="tsd-signature-symbol">:</span> <a href="../modules.html#TProjectionDictionary" class="tsd-signature-type" data-tsd-kind="Type alias">TProjectionDictionary</a><span class="tsd-signature-symbol"> = {}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L14">ProjectionEditor/Projection.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L20">ProjectionEditor/Projection.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -188,7 +231,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L77">ProjectionEditor/Projection.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L83">ProjectionEditor/Projection.ts:83</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -206,7 +249,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/IProjectionEditor.html">IProjectionEditor</a>.<a href="../interfaces/IProjectionEditor.html#addSubject">addSubject</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L24">ProjectionEditor/Projection.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L30">ProjectionEditor/Projection.ts:30</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -230,7 +273,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/IProjectionEditor.html">IProjectionEditor</a>.<a href="../interfaces/IProjectionEditor.html#getKeys">getKeys</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L45">ProjectionEditor/Projection.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L51">ProjectionEditor/Projection.ts:51</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -248,7 +291,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/IProjectionEditor.html">IProjectionEditor</a>.<a href="../interfaces/IProjectionEditor.html#getProjectableSubjectsDictionary">getProjectableSubjectsDictionary</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L30">ProjectionEditor/Projection.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L36">ProjectionEditor/Projection.ts:36</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/IProjectableSubjectDictionary.html" class="tsd-signature-type" data-tsd-kind="Interface">IProjectableSubjectDictionary</a></h4>
@@ -266,7 +309,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/IProjectionEditor.html">IProjectionEditor</a>.<a href="../interfaces/IProjectionEditor.html#getProjectionOrderByColumPosition">getProjectionOrderByColumPosition</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L49">ProjectionEditor/Projection.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L55">ProjectionEditor/Projection.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../modules.html#TProjectionDictionary" class="tsd-signature-type" data-tsd-kind="Type alias">TProjectionDictionary</a></h4>
@@ -284,7 +327,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/IProjectionEditor.html">IProjectionEditor</a>.<a href="../interfaces/IProjectionEditor.html#getProjectionSubject">getProjectionSubject</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L63">ProjectionEditor/Projection.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L69">ProjectionEditor/Projection.ts:69</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -308,7 +351,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/IProjectionEditor.html">IProjectionEditor</a>.<a href="../interfaces/IProjectionEditor.html#getSubProjectionBySubjectId">getSubProjectionBySubjectId</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L35">ProjectionEditor/Projection.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L41">ProjectionEditor/Projection.ts:41</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -332,7 +375,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/IProjectionEditor.html">IProjectionEditor</a>.<a href="../interfaces/IProjectionEditor.html#removeProjectionSubject">removeProjectionSubject</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L67">ProjectionEditor/Projection.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L73">ProjectionEditor/Projection.ts:73</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -356,7 +399,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/IProjectionEditor.html">IProjectionEditor</a>.<a href="../interfaces/IProjectionEditor.html#toJson">toJson</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L81">ProjectionEditor/Projection.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L87">ProjectionEditor/Projection.ts:87</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../modules.html#TProjectionProperties" class="tsd-signature-type" data-tsd-kind="Type alias">TProjectionProperties</a><span class="tsd-signature-symbol">[]</span></h4>
@@ -374,7 +417,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/IProjectionEditor.html">IProjectionEditor</a>.<a href="../interfaces/IProjectionEditor.html#updateSubject">updateSubject</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L71">ProjectionEditor/Projection.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L77">ProjectionEditor/Projection.ts:77</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -400,7 +443,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L90">ProjectionEditor/Projection.ts:90</a></li>
+									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L96">ProjectionEditor/Projection.ts:96</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -426,7 +469,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/5e0e337/src/ProjectionEditor/Projection.ts#L86">ProjectionEditor/Projection.ts:86</a></li>
+									<li>Defined in <a href="https://github.com/terary/gabby-query-protocol-projection/blob/60b1393/src/ProjectionEditor/Projection.ts#L92">ProjectionEditor/Projection.ts:92</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
