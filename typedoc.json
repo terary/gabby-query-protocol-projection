@@ -1,0 +1,9 @@
+{
+  "entryPoints": [
+    "./src/index.ts"
+  ],
+  "includes": "examples",
+  "includeVersion": true,
+  "name": "Gabby Query Protocol - Projection",
+  "out": "docs"
+}

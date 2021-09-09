@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>gabby-query-protocol-projection</title>
-	<meta name="description" content="Documentation for gabby-query-protocol-projection">
+	<title>Gabby Query Protocol - Projection - v1.0.0-beta.3</title>
+	<meta name="description" content="Documentation for Gabby Query Protocol - Projection - v1.0.0-beta.3">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 	<script async src="assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">gabby-query-protocol-projection</a>
+					<a href="index.html" class="title">Gabby Query Protocol - Projection - v1.0.0-beta.3</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -50,7 +50,7 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<h1>gabby-query-protocol-projection</h1>
+			<h1>Gabby Query Protocol - Projection - v1.0.0-beta.3</h1>
 		</div>
 	</div>
 </header>
@@ -58,18 +58,58 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<p><a href="https://terary.github.io/gabby-query-protocol-www/">Gabby Query Protocol Project site</a></p>
-				<p><a href="https://terary.github.io/gabby-query-protocol-lib/">This Repo&#39;s docs</a></p>
 				<a href="#gabby-query-protocol-projection" id="gabby-query-protocol-projection" style="color: inherit; text-decoration: none;">
 					<h1>gabby-query-protocol-projection</h1>
 				</a>
+				<p><a href="https://app.travis-ci.com/terary/typescript-travis-trial-do-not-use"><img src="https://app.travis-ci.com/terary/typescript-travis-trial-do-not-use.svg?branch=main" alt="Build Status"></a></p>
+				<p>Utility to assist with field selection routines.</p>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<p>Using npm:</p>
+				<p><code>$ npm install gabby-query-protocol-projection</code></p>
 				<a href="#description" id="description" style="color: inherit; text-decoration: none;">
 					<h3>Description</h3>
 				</a>
-				<p>This project was forked from Gabby Query Protocol Lib. The only relation the two projects share is that both will likely get
-					description information from the same source.
-					<code>SELECT</code> fields will likely be a union-set of
-				<code>WHERE</code> fields.</p>
+				<p><a href="https://terary.github.io/gabby-query-protocol-projection/">This Repo&#39;s docs</a></p>
+				<p><a href="https://terary.github.io/gabby-query-protocol-www/">Project&#39;s docs</a></p>
+				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+					<h2>Example</h2>
+				</a>
+				<p>Simple usage:</p>
+				<pre><code class="language-ts"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">ProjectionEditorFactory</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;gabby-query-protocol-projection&quot;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">EXAMPLE_JSON_BLUE_SKIES</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;gabby-query-protocol-projection&quot;</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #001080">projectionJson</span><span style="color: #000000">: </span><span style="color: #0070C1">projectionItemsJson</span><span style="color: #000000"> } = </span><span style="color: #0070C1">EXAMPLE_JSON_BLUE_SKIES</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">projectableSubjectDictionaryJson</span><span style="color: #000000"> } = </span><span style="color: #0070C1">EXAMPLE_JSON_BLUE_SKIES</span><span style="color: #000000">;</span>
+
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">exampleProjectionEditor</span><span style="color: #000000"> = </span><span style="color: #001080">ProjectionEditorFactory</span><span style="color: #000000">.</span><span style="color: #795E26">fromJson</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">projectionItemsJson</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">projectableSubjectDictionaryJson</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">projectionItemId</span><span style="color: #000000"> = </span><span style="color: #001080">exampleProjectionEditor</span><span style="color: #000000">.</span><span style="color: #795E26">addSubject</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">label:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;My New Projection Item&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">subjectId:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;lastname&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">columnOrder:</span><span style="color: #000000"> </span><span style="color: #098658">1000</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">sortOrder:</span><span style="color: #000000"> -</span><span style="color: #098658">1</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #001080">exampleProjectionEditor</span><span style="color: #000000">.</span><span style="color: #795E26">updateSubject</span><span style="color: #000000">(</span><span style="color: #001080">projectionItemId</span><span style="color: #000000">, { </span><span style="color: #001080">columnOrder:</span><span style="color: #000000"> </span><span style="color: #098658">10</span><span style="color: #000000"> });</span>
+
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">exampleProjectionEditor</span><span style="color: #000000">.</span><span style="color: #795E26">getProjectionOrderByColumPosition</span><span style="color: #000000">());</span>
+</code></pre>
+				<a href="#terminology" id="terminology" style="color: inherit; text-decoration: none;">
+					<h3>terminology</h3>
+				</a>
+				<p><strong>projection</strong> - a field, or column, or similar, or a collection thereof.
+				Possible uses of a projection:</p>
+				<ul>
+					<li><code>SELECT [projection]</code></li>
+					<li><code>ORDER BY [projection]</code></li>
+					<li>record definition</li>
+					<li>non-SQL column definition</li>
+				</ul>
 				<a href="#npm-run" id="npm-run" style="color: inherit; text-decoration: none;">
 					<h3>npm run</h3>
 				</a>

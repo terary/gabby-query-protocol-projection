@@ -10,6 +10,8 @@
   "scripts": {
     "test": "jest",
     "commit": "cz",
+    "make-example-html": "echo run './make-example-html.sh' from command line - something goof with directory listings",
+    "typedoc": " typedoc",
     "test:all": "npm run test -- --watchAll=false --verbose",
     "coverage": "npm run test -- --watchAll=false --verbose --coverage  --collectCoverageFrom=src/**/*.ts* ",
     "gabby:build": "rm -rf dist && NODE_ENV=production  tsc -p tsconfig.dist.json",
