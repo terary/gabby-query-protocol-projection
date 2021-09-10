@@ -2,12 +2,14 @@ import { ProjectionError } from "../ProjectionError";
 import { ProjectionSimple } from "./Projection";
 import { IProjectionEditor } from "./IProjectionEditor";
 import { TProjectionPropertiesJson, TProjectionProperties } from "./type";
+import type { IExportToJson, IImportFromJson } from "../common";
 import type {
   IProjectableSubjectDictionary,
   TProjectableSubjectsDictionaryJson,
 } from "../ProjectableSubjectDictionary";
 import { Validators } from "../validators";
 import { ProjectableDictionaryFactory } from "../ProjectableSubjectDictionary";
+import { string } from "yargs";
 
 interface ProjectionEditorJson {
   projectableSubjectDictionaryJson: TProjectableSubjectsDictionaryJson;
@@ -27,9 +29,13 @@ const buildDefaultProjection = (subjectDictionary: IProjectableSubjectDictionary
     } as TProjectionProperties;
   });
 };
+// prettier-ignore
+type ProjectionImportExportType = // rename to TProjectionImportExport if moving out of file
+  IImportFromJson<ProjectionEditorJson, IProjectionEditor> &
+  IExportToJson<IProjectionEditor, ProjectionEditorJson>;
 
-export namespace ProjectionEditorFactory {
-  export function fromJson(json: ProjectionEditorJson): IProjectionEditor {
+export const ProjectionEditorFactory: ProjectionImportExportType = {
+  fromJson: (json: ProjectionEditorJson) => {
     //
     const projectableSubjects = ProjectableDictionaryFactory.fromJson(
       json.projectableSubjectDictionaryJson
@@ -61,14 +67,14 @@ export namespace ProjectionEditorFactory {
       projection.addSubject(projectionItem as TProjectionProperties);
     });
     return projection as IProjectionEditor;
-  }
+  },
 
-  export const toJson = (projection: IProjectionEditor): ProjectionEditorJson => {
+  toJson: (projection: IProjectionEditor): ProjectionEditorJson => {
     return {
       projectionItemsJson: projection.toJson(),
       projectableSubjectDictionaryJson: projection
         .getProjectableSubjectsDictionary()
         .toJson(),
     };
-  };
-}
+  },
+};
