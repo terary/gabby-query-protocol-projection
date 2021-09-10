@@ -1,30 +1,60 @@
 import { ProjectionError } from "../ProjectionError";
-import { Projection } from "./Projection";
+import { ProjectionSimple } from "./Projection";
 import { IProjectionEditor } from "./IProjectionEditor";
 import { TProjectionPropertiesJson, TProjectionProperties } from "./type";
-import type { TProjectableSubjectsDictionaryJson } from "../ProjectableSubjectDictionary";
+import type { IExportToJson, IImportFromJson } from "../common";
+import type {
+  IProjectableSubjectDictionary,
+  TProjectableSubjectsDictionaryJson,
+} from "../ProjectableSubjectDictionary";
 import { Validators } from "../validators";
 import { ProjectableDictionaryFactory } from "../ProjectableSubjectDictionary";
+import { string } from "yargs";
 
 interface ProjectionEditorJson {
-  projectionItemsJson: TProjectionPropertiesJson[];
   projectableSubjectDictionaryJson: TProjectableSubjectsDictionaryJson;
+  projectionItemsJson?: TProjectionPropertiesJson[];
 }
 
-export namespace ProjectionEditorFactory {
-  export function fromJson(json: ProjectionEditorJson): IProjectionEditor {
+const buildDefaultProjection = (subjectDictionary: IProjectableSubjectDictionary) => {
+  const subjectIds = subjectDictionary.getSubjectIds();
+
+  return subjectIds.map((subjectId, index) => {
+    const defaults = subjectDictionary.getSubjectById(subjectId);
+    return {
+      subjectId,
+      label: defaults.defaultLabel,
+      sortOrder: defaults.isSortable ? 1 : 0,
+      columnOrder: index,
+    } as TProjectionProperties;
+  });
+};
+// prettier-ignore
+type ProjectionImportExportType = // rename to TProjectionImportExport if moving out of file
+  IImportFromJson<ProjectionEditorJson, IProjectionEditor> &
+  IExportToJson<IProjectionEditor, ProjectionEditorJson>;
+
+export const ProjectionEditorFactory: ProjectionImportExportType = {
+  fromJson: (json: ProjectionEditorJson) => {
+    //
     const projectableSubjects = ProjectableDictionaryFactory.fromJson(
       json.projectableSubjectDictionaryJson
     );
 
-    if (!Array.isArray(json.projectionItemsJson)) {
+    let projectableItems = json.projectionItemsJson;
+
+    if (!projectableItems) {
+      projectableItems = buildDefaultProjection(projectableSubjects);
+    }
+
+    if (!Array.isArray(projectableItems)) {
       throw new ProjectionError(
         `Failed to parse json, expected array, received ${typeof json}`
       );
     }
-    const projection = new Projection(projectableSubjects);
+    const projection = new ProjectionSimple(projectableSubjects);
 
-    json.projectionItemsJson.forEach((projectionItem) => {
+    projectableItems.forEach((projectionItem) => {
       const { hasError, errorMessages } = Validators.ValidateProjectionProperties(
         projectionItem,
         projectableSubjects
@@ -37,14 +67,14 @@ export namespace ProjectionEditorFactory {
       projection.addSubject(projectionItem as TProjectionProperties);
     });
     return projection as IProjectionEditor;
-  }
+  },
 
-  export const toJson = (projection: IProjectionEditor): ProjectionEditorJson => {
+  toJson: (projection: IProjectionEditor): ProjectionEditorJson => {
     return {
       projectionItemsJson: projection.toJson(),
       projectableSubjectDictionaryJson: projection
         .getProjectableSubjectsDictionary()
         .toJson(),
     };
-  };
-}
+  },
+};
