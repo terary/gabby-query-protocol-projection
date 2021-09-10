@@ -16,7 +16,7 @@ import { TProjectionPropertiesJson } from "./type";
  * [[include:ExampleProjectionEditor2.html]]
  * [[include:ExampleProjectionEditor3.html]]
  */
-export class Projection implements IProjectionEditor {
+export class ProjectionSimple implements IProjectionEditor {
   private _projections: TProjectionDictionary = {};
 
   private _projectableSubjects: IProjectableSubjectDictionary;
@@ -89,20 +89,20 @@ export class Projection implements IProjectionEditor {
   }
 
   // TODO - *tmc* -- from/to JSON should acception projectionProperties[]
-  static toFlatFile(projection: Projection) {
+  static toFlatFile(projection: ProjectionSimple) {
     return Object.values(projection.getProjectionOrderByColumPosition());
   }
 
   static fromFlatFile(
     json: TProjectionPropertiesJson[],
     projectableSubjects: IProjectableSubjectDictionary
-  ): Projection {
+  ): ProjectionSimple {
     if (!Array.isArray(json)) {
       throw new ProjectionError(
         `Failed to parse json, expected array, received ${typeof json}`
       );
     }
-    const projection = new Projection(projectableSubjects);
+    const projection = new ProjectionSimple(projectableSubjects);
 
     json.forEach((projectionItem) => {
       const { hasError, errorMessages } = Validators.ValidateProjectionProperties(
