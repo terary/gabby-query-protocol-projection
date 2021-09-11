@@ -11,8 +11,8 @@ import type {
 
 export { ProjectionSimple as Projection, ProjectionEditorFactory };
 export type {
-  TProjectionItemProperties as TProjectionProperties,
-  TProjectionItemPropertiesJson as TProjectionPropertiesJson,
+  TProjectionItemProperties,
+  TProjectionItemPropertiesJson,
   TProjectionDictionary,
   TProjectionPropertiesUpdatable,
   IProjectionEditor,
