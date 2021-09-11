@@ -1,14 +1,14 @@
 import pick from "lodash.pick";
 import type {
   TProjectionDictionary,
-  TProjectionProperties,
+  TProjectionItemProperties,
   TProjectionPropertiesUpdatable,
 } from "./type";
 import { IProjectableSubjectDictionary } from "../ProjectableSubjectDictionary";
 import { ProjectionError } from "../ProjectionError";
 import { IProjectionEditor } from "./IProjectionEditor";
 import { Validators } from "../validators";
-import { TProjectionPropertiesJson } from "./type";
+import { TProjectionItemPropertiesJson } from "./type";
 
 /**
  * Example usage:
@@ -27,7 +27,7 @@ export class ProjectionSimple implements IProjectionEditor {
     this._projectableSubjects = projectableSubjects;
   }
 
-  addSubject(projection: TProjectionProperties): string {
+  addSubject(projection: TProjectionItemProperties): string {
     const projectionSubjectId = this._nextIndex();
     this._projections[projectionSubjectId] = projection;
     return projectionSubjectId;
@@ -66,7 +66,7 @@ export class ProjectionSimple implements IProjectionEditor {
     return a;
   }
 
-  getProjectionSubject(key: string): TProjectionProperties {
+  getProjectionSubject(key: string): TProjectionItemProperties {
     return this._projections[key];
   }
 
@@ -84,7 +84,7 @@ export class ProjectionSimple implements IProjectionEditor {
     return `key${this._keyCount++}`;
   }
 
-  toJson(): TProjectionProperties[] {
+  toJson(): TProjectionItemProperties[] {
     return Object.values(this._projections);
   }
 
@@ -94,7 +94,7 @@ export class ProjectionSimple implements IProjectionEditor {
   }
 
   static fromFlatFile(
-    json: TProjectionPropertiesJson[],
+    json: TProjectionItemPropertiesJson[],
     projectableSubjects: IProjectableSubjectDictionary
   ): ProjectionSimple {
     if (!Array.isArray(json)) {
@@ -114,7 +114,7 @@ export class ProjectionSimple implements IProjectionEditor {
         throw new ProjectionError("Failed to parse json", errorMessages);
       }
 
-      projection.addSubject(projectionItem as TProjectionProperties);
+      projection.addSubject(projectionItem as TProjectionItemProperties);
     });
     return projection;
   }

@@ -3,16 +3,16 @@ import { ProjectionSimple } from "./Projection";
 import { IProjectionEditor } from "./IProjectionEditor";
 import { ProjectionEditorFactory } from "./ProjectionEditorFactory";
 import type {
-  TProjectionProperties,
-  TProjectionPropertiesJson,
+  TProjectionItemProperties,
+  TProjectionItemPropertiesJson,
   TProjectionDictionary,
   TProjectionPropertiesUpdatable,
 } from "./type";
 
 export { ProjectionSimple as Projection, ProjectionEditorFactory };
 export type {
-  TProjectionProperties,
-  TProjectionPropertiesJson,
+  TProjectionItemProperties as TProjectionProperties,
+  TProjectionItemPropertiesJson as TProjectionPropertiesJson,
   TProjectionDictionary,
   TProjectionPropertiesUpdatable,
   IProjectionEditor,

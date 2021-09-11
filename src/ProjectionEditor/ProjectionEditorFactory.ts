@@ -1,7 +1,7 @@
 import { ProjectionError } from "../ProjectionError";
 import { ProjectionSimple } from "./Projection";
 import { IProjectionEditor } from "./IProjectionEditor";
-import { TProjectionPropertiesJson, TProjectionProperties } from "./type";
+import { TProjectionItemPropertiesJson, TProjectionItemProperties } from "./type";
 import type { IExportToJson, IImportFromJson } from "../common";
 import type {
   IProjectableSubjectDictionary,
@@ -13,7 +13,7 @@ import { string } from "yargs";
 
 interface ProjectionEditorJson {
   projectableSubjectDictionaryJson: TProjectableSubjectsDictionaryJson;
-  projectionItemsJson?: TProjectionPropertiesJson[];
+  projectionItemsJson?: TProjectionItemPropertiesJson[];
 }
 
 const buildDefaultProjection = (subjectDictionary: IProjectableSubjectDictionary) => {
@@ -26,7 +26,7 @@ const buildDefaultProjection = (subjectDictionary: IProjectableSubjectDictionary
       label: defaults.defaultLabel,
       sortOrder: defaults.isSortable ? 1 : 0,
       columnOrder: index,
-    } as TProjectionProperties;
+    } as TProjectionItemProperties;
   });
 };
 // prettier-ignore
@@ -64,7 +64,7 @@ export const ProjectionEditorFactory: ProjectionImportExportType = {
         throw new ProjectionError("Failed to parse json", errorMessages);
       }
 
-      projection.addSubject(projectionItem as TProjectionProperties);
+      projection.addSubject(projectionItem as TProjectionItemProperties);
     });
     return projection as IProjectionEditor;
   },

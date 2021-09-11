@@ -1,7 +1,7 @@
 import { ProjectionEditorFactory } from "./ProjectionEditorFactory";
 import { EXAMPLE_JSON_BLUE_SKIES } from "../external-files";
 import { ProjectionError } from "../ProjectionError";
-import { TProjectionPropertiesJson } from "./type";
+import { TProjectionItemPropertiesJson } from "./type";
 
 const subjectDictionaryJson = EXAMPLE_JSON_BLUE_SKIES.projectableSubjectDictionaryJson;
 const existingProjectionJson = EXAMPLE_JSON_BLUE_SKIES.projectionJson;
@@ -27,7 +27,7 @@ describe("ProjectionEditorFactory", () => {
   it("Should throw error projectionItems not an array", () => {
     const editorJson = {
       //@ts-ignore
-      projectionItemsJson: { existingProjectionJson } as TProjectionPropertiesJson[],
+      projectionItemsJson: { existingProjectionJson } as TProjectionItemPropertiesJson[],
       projectableSubjectDictionaryJson: subjectDictionaryJson,
     };
 
@@ -44,7 +44,7 @@ describe("ProjectionEditorFactory", () => {
       // "sortOrder": -1,
       columnOrder: -1,
       label: "Jackson 5 II",
-    } as TProjectionPropertiesJson;
+    } as TProjectionItemPropertiesJson;
 
     const editorJson = {
       //@ts-ignore
@@ -65,7 +65,7 @@ describe("ProjectionEditorFactory", () => {
       // "sortOrder": -1,
       columnOrder: -1,
       label: "Jackson 5 II",
-    } as TProjectionPropertiesJson;
+    } as TProjectionItemPropertiesJson;
 
     const editorJson = {
       //@ts-ignore
