@@ -1,7 +1,7 @@
 # gabby-query-protocol-projection
 
 [![Build Status](https://app.travis-ci.com/terary/typescript-travis-trial-do-not-use.svg?branch=main)](https://app.travis-ci.com/terary/typescript-travis-trial-do-not-use)
-[![codecov](https://codecov.io/gh/terary/typescript-travis-trial-do-not-use/branch/main/graph/badge.svg?token=MWXX9ASDMG)](https://codecov.io/gh/terary/typescript-travis-trial-do-not-use)
+[![codecov](https://codecov.io/gh/terary/gabby-query-protocol-projection/branch/main/graph/badge.svg?token=EOCDJS5RWC)](https://codecov.io/gh/terary/gabby-query-protocol-projection)
 [![awesome](https://img.shields.io/badge/awesome-100%25-blue)](https://github.com/terary/typescript-travis-trial-do-not-use)
 [![Gabby Query Protocol](https://img.shields.io/badge/GQP-projection-blue)](https://github.com/terary/typescript-travis-trial-do-not-use)
 
@@ -13,15 +13,32 @@ Using npm:
 
 `$ npm install gabby-query-protocol-projection`
 
+### Documentation
+
+[This Repo's docs](https://terary.github.io/gabby-query-protocol-projection/)
+
+[Project's docs](https://terary.github.io/gabby-query-protocol-www/)
+
+`./examples/*` contains executable snippets found in documentation.
+
 ### Description
 
-This is a sub-project project the Gabby Query Protocol.  
-The purpose of the project is to provide utilities for column selection (a projection).
+This is a sub-project the Gabby Query Protocol. The purpose of this project is to provide utilities for column selection (a projection).
+
+**projection** - a field, or column, or similar, or a collection thereof.
+Possible uses of a projection:
+
+- `SELECT [projection]`
+- `ORDER BY [projection]`
+- record definition
+- non-SQL column definition
+
+### Main classes/types
 
 A projection item:
 
 ```ts
-export type TProjectionProperties = {
+type TProjectionItemProperties = {
   subjectId: string;
   sortOrder: number; // between [-1,1]
   columnOrder: number; // any number ok. This is not position
@@ -29,9 +46,45 @@ export type TProjectionProperties = {
 };
 ```
 
-[This Repo's docs](https://terary.github.io/gabby-query-protocol-projection/)
+A projection:
 
-[Project's docs](https://terary.github.io/gabby-query-protocol-www/)
+```ts
+type TProjection = TProjectionItemProperties[];
+```
+
+A Projection Editor:
+
+```ts
+export interface IProjectionEditor {
+  addSubject(projection: TProjectionItemProperties): string;
+
+  getProjectableSubjectsDictionary(): IProjectableSubjectDictionary;
+
+  getSubProjectionBySubjectId(subjectId: string): TProjectionDictionary;
+
+  getKeys(): string[];
+
+  getProjectionOrderByColumPosition(): TProjectionDictionary;
+
+  getProjectionSubject(key: string): TProjectionItemProperties;
+
+  removeProjectionSubject(key: string): void;
+
+  updateSubject(key: string, props: TProjectionPropertiesUpdatable): void;
+
+  toJson(): TProjectionItemProperties[];
+}
+```
+
+Projectable Subject (field properties to be used to create projectionItem)
+
+```ts
+export type TProjectableSubjectProperties = {
+  isSortable: boolean; // this would likely used in things like ORDER BY
+  datatype: TSupportedDatatype;
+  defaultLabel: string;
+};
+```
 
 ## Example
 
@@ -45,8 +98,8 @@ const { projectionJson: projectionItemsJson } = EXAMPLE_JSON_BLUE_SKIES;
 const { projectableSubjectDictionaryJson } = EXAMPLE_JSON_BLUE_SKIES;
 
 export const exampleProjectionEditor = ProjectionEditorFactory.fromJson({
-  projectionItemsJson,
   projectableSubjectDictionaryJson,
+  projectionItemsJson, // optional, if undefined a new default projection created
 });
 
 const projectionItemId = exampleProjectionEditor.addSubject({
@@ -60,16 +113,6 @@ exampleProjectionEditor.updateSubject(projectionItemId, { columnOrder: 10 });
 
 console.log(exampleProjectionEditor.getProjectionOrderByColumPosition());
 ```
-
-### terminology
-
-**projection** - a field, or column, or similar, or a collection thereof.
-Possible uses of a projection:
-
-- `SELECT [projection]`
-- `ORDER BY [projection]`
-- record definition
-- non-SQL column definition
 
 ### npm run
 
