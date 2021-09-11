@@ -1,11 +1,11 @@
 import { TValidatorResponse } from "./types";
 import { IProjectableSubjectDictionary } from "../index";
 import helperFunctions from "./helperFunctions";
-import { TProjectionPropertiesJson } from "../ProjectionEditor/type";
+import { TProjectionItemPropertiesJson } from "../ProjectionEditor/type";
 
 export interface IValidateProjectionPropertiesProps {
   (
-    properties: TProjectionPropertiesJson,
+    properties: TProjectionItemPropertiesJson,
     projectableSubjects: IProjectableSubjectDictionary
   ): TValidatorResponse;
 }
@@ -41,7 +41,9 @@ export const ValidateProjectionProperties: IValidateProjectionPropertiesProps = 
   return { hasError: errorMessages.length > 0, errorMessages };
 };
 
-const validatePropertySortOrder = (properties: TProjectionPropertiesJson): string[] => {
+const validatePropertySortOrder = (
+  properties: TProjectionItemPropertiesJson
+): string[] => {
   const errorMessages: string[] = [];
 
   if (typeof properties.sortOrder !== "number") {
@@ -62,7 +64,7 @@ const validatePropertySortOrder = (properties: TProjectionPropertiesJson): strin
   return errorMessages;
 };
 
-const validatePropertyLabel = (properties: TProjectionPropertiesJson): string[] => {
+const validatePropertyLabel = (properties: TProjectionItemPropertiesJson): string[] => {
   const errorMessages: string[] = [];
 
   if (typeof properties.label !== "string") {
@@ -75,7 +77,7 @@ const validatePropertyLabel = (properties: TProjectionPropertiesJson): string[] 
 };
 
 const validatePropertySubjectId = (
-  properties: TProjectionPropertiesJson,
+  properties: TProjectionItemPropertiesJson,
   projectableSubjects: IProjectableSubjectDictionary
 ): string[] => {
   const errorMessages: string[] = [];
@@ -101,7 +103,9 @@ const validatePropertySubjectId = (
   return errorMessages;
 };
 
-const validatePropertyColumnOrder = (properties: TProjectionPropertiesJson): string[] => {
+const validatePropertyColumnOrder = (
+  properties: TProjectionItemPropertiesJson
+): string[] => {
   const errorMessages: string[] = [];
 
   if (typeof properties.columnOrder !== "number") {
