@@ -1,12 +1,12 @@
 import type {
   TProjectionDictionary,
-  TProjectionProperties,
+  TProjectionItemProperties,
   TProjectionPropertiesUpdatable,
 } from "./type";
 import type { IProjectableSubjectDictionary } from "../ProjectableSubjectDictionary";
 
 export interface IProjectionEditor {
-  addSubject(projection: TProjectionProperties): string;
+  addSubject(projection: TProjectionItemProperties): string;
 
   getProjectableSubjectsDictionary(): IProjectableSubjectDictionary;
 
@@ -16,11 +16,11 @@ export interface IProjectionEditor {
 
   getProjectionOrderByColumPosition(): TProjectionDictionary;
 
-  getProjectionSubject(key: string): TProjectionProperties;
+  getProjectionSubject(key: string): TProjectionItemProperties;
 
   removeProjectionSubject(key: string): void;
 
   updateSubject(key: string, props: TProjectionPropertiesUpdatable): void;
 
-  toJson(): TProjectionProperties[];
+  toJson(): TProjectionItemProperties[];
 }
