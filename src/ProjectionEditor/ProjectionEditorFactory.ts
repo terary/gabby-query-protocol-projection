@@ -1,5 +1,5 @@
 import { ProjectionError } from "../ProjectionError";
-import { ProjectionSimple } from "./Projection";
+import { ProjectionSimple } from "./ProjectionSimple";
 import { IProjectionEditor } from "./IProjectionEditor";
 import { TProjectionItemPropertiesJson, TProjectionItemProperties } from "./type";
 import type { IExportToJson, IImportFromJson } from "../common";
@@ -9,7 +9,6 @@ import type {
 } from "../ProjectableSubjectDictionary";
 import { Validators } from "../validators";
 import { ProjectableDictionaryFactory } from "../ProjectableSubjectDictionary";
-import { string } from "yargs";
 
 interface ProjectionEditorJson {
   projectableSubjectDictionaryJson: TProjectableSubjectsDictionaryJson;

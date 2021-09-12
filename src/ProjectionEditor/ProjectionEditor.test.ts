@@ -1,6 +1,6 @@
 import { cloneDeep } from "lodash";
 
-import { ProjectionSimple } from "./Projection";
+import { ProjectionSimple } from "./ProjectionSimple";
 import { ProjectionError } from "../ProjectionError";
 import { EXAMPLE_JSON_BLUE_SKIES } from "../external-files";
 import { ProjectableDictionaryFactory } from "../ProjectableSubjectDictionary";

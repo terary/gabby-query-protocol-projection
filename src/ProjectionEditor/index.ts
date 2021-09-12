@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { ProjectionSimple } from "./Projection";
+import { ProjectionSimple } from "./ProjectionSimple";
 import { IProjectionEditor } from "./IProjectionEditor";
 import { ProjectionEditorFactory } from "./ProjectionEditorFactory";
 import type {

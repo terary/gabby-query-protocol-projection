@@ -19,9 +19,6 @@ const isNumeric = (value: any): boolean => {
 };
 
 export const isDecimal = (value: any): boolean => {
-  const x = isNumeric(value);
-  const y = !isInteger(value);
-
   return (
     !isString(value) &&
     isNumeric(value) &&
