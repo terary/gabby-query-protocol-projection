@@ -4,6 +4,8 @@
 [![codecov](https://codecov.io/gh/terary/gabby-query-protocol-projection/branch/main/graph/badge.svg?token=EOCDJS5RWC)](https://codecov.io/gh/terary/gabby-query-protocol-projection)
 [![awesome](https://img.shields.io/badge/awesome-100%25-blue)](https://github.com/terary/typescript-travis-trial-do-not-use)
 [![Gabby Query Protocol](https://img.shields.io/badge/GQP-projection-blue)](https://github.com/terary/typescript-travis-trial-do-not-use)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/terary/gabby-query-protocol-projection.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/terary/gabby-query-protocol-projection/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/terary/gabby-query-protocol-projection.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/terary/gabby-query-protocol-projection/context:javascript)
 
 Utility to assist with field selection routines. AKA: Column selection utility.
 
