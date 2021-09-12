@@ -1,6 +1,6 @@
 import { cloneDeep } from "lodash";
 
-import { Projection } from "./Projection";
+import { ProjectionSimple } from "./ProjectionSimple";
 import { ProjectionError } from "../ProjectionError";
 import { EXAMPLE_JSON_BLUE_SKIES } from "../external-files";
 import { ProjectableDictionaryFactory } from "../ProjectableSubjectDictionary";
@@ -24,11 +24,11 @@ type ProjectionPropertiesTesting = {
 describe("Projection", () => {
   describe(".fromJson", () => {
     it("Should create a projection instance (smoke test/blue skies)", () => {
-      const projection = Projection.fromFlatFile(
+      const projection = ProjectionSimple.fromFlatFile(
         projectionBlueSkyJson,
         projectableSubjects
       );
-      expect(Projection.toFlatFile(projection).length).toStrictEqual(5);
+      expect(ProjectionSimple.toFlatFile(projection).length).toStrictEqual(5);
     });
     describe("Validation", () => {
       let testProperties: ProjectionPropertiesTesting;
@@ -42,7 +42,7 @@ describe("Projection", () => {
       });
       it("Should throw array of flatProjection is not an array", () => {
         const expectError = () => {
-          Projection.fromFlatFile(
+          ProjectionSimple.fromFlatFile(
             testProperties as unknown as any[],
             projectableSubjects
           );
@@ -108,7 +108,7 @@ describe("Projection", () => {
   }); // describe validation?
   describe(".getProjectableSubjectsDictionary", () => {
     it("Should return an ProjectableSubjects", () => {
-      const projection = Projection.fromFlatFile(
+      const projection = ProjectionSimple.fromFlatFile(
         projectionBlueSkyJson,
         projectableSubjects
       );
@@ -119,7 +119,7 @@ describe("Projection", () => {
   describe(".getSubProjectionBySubjectId", () => {
     it("Should return subset projection, only subject with given subjectId", () => {
       // set-up
-      const projection = Projection.fromFlatFile(
+      const projection = ProjectionSimple.fromFlatFile(
         projectionBlueSkyJson,
         projectableSubjects
       );
@@ -134,7 +134,7 @@ describe("Projection", () => {
     });
     it("Should always return an object, regardless if subjectId is found", () => {
       // set-up
-      const projection = Projection.fromFlatFile(
+      const projection = ProjectionSimple.fromFlatFile(
         projectionBlueSkyJson,
         projectableSubjects
       );
@@ -150,7 +150,7 @@ describe("Projection", () => {
     //describe(".getProjectableSubjectsDictionary"
     it("Should return an object", () => {
       // set-up
-      const projection = Projection.fromFlatFile(
+      const projection = ProjectionSimple.fromFlatFile(
         projectionBlueSkyJson,
         projectableSubjects
       );
@@ -189,7 +189,7 @@ describe("Projection", () => {
   describe(".removeSubject", () => {
     it("Should remove subject with key", () => {
       // setup
-      const projection = Projection.fromFlatFile(
+      const projection = ProjectionSimple.fromFlatFile(
         projectionBlueSkyJson,
         projectableSubjects
       );
@@ -219,7 +219,7 @@ describe("Projection", () => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const expectParseError = (json: any, expectedErrorMessage: string) => {
   try {
-    Projection.fromFlatFile(json, projectableSubjects);
+    ProjectionSimple.fromFlatFile(json, projectableSubjects);
     throw Error("Test Failed - expected .fromFlatFile to throw error - it did not.");
   } catch (e) {
     expect(e.constructor.name).toBe("ProjectionError");

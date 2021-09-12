@@ -1,14 +1,14 @@
 import pick from "lodash.pick";
 import type {
   TProjectionDictionary,
-  TProjectionProperties,
+  TProjectionItemProperties,
   TProjectionPropertiesUpdatable,
 } from "./type";
 import { IProjectableSubjectDictionary } from "../ProjectableSubjectDictionary";
 import { ProjectionError } from "../ProjectionError";
 import { IProjectionEditor } from "./IProjectionEditor";
 import { Validators } from "../validators";
-import { TProjectionPropertiesJson } from "./type";
+import { TProjectionItemPropertiesJson } from "./type";
 
 /**
  * Example usage:
@@ -16,7 +16,7 @@ import { TProjectionPropertiesJson } from "./type";
  * [[include:ExampleProjectionEditor2.html]]
  * [[include:ExampleProjectionEditor3.html]]
  */
-export class Projection implements IProjectionEditor {
+export class ProjectionSimple implements IProjectionEditor {
   private _projections: TProjectionDictionary = {};
 
   private _projectableSubjects: IProjectableSubjectDictionary;
@@ -27,7 +27,7 @@ export class Projection implements IProjectionEditor {
     this._projectableSubjects = projectableSubjects;
   }
 
-  addSubject(projection: TProjectionProperties): string {
+  addSubject(projection: TProjectionItemProperties): string {
     const projectionSubjectId = this._nextIndex();
     this._projections[projectionSubjectId] = projection;
     return projectionSubjectId;
@@ -66,7 +66,7 @@ export class Projection implements IProjectionEditor {
     return a;
   }
 
-  getProjectionSubject(key: string): TProjectionProperties {
+  getProjectionSubject(key: string): TProjectionItemProperties {
     return this._projections[key];
   }
 
@@ -84,25 +84,25 @@ export class Projection implements IProjectionEditor {
     return `key${this._keyCount++}`;
   }
 
-  toJson(): TProjectionProperties[] {
+  toJson(): TProjectionItemProperties[] {
     return Object.values(this._projections);
   }
 
   // TODO - *tmc* -- from/to JSON should acception projectionProperties[]
-  static toFlatFile(projection: Projection) {
+  static toFlatFile(projection: ProjectionSimple) {
     return Object.values(projection.getProjectionOrderByColumPosition());
   }
 
   static fromFlatFile(
-    json: TProjectionPropertiesJson[],
+    json: TProjectionItemPropertiesJson[],
     projectableSubjects: IProjectableSubjectDictionary
-  ): Projection {
+  ): ProjectionSimple {
     if (!Array.isArray(json)) {
       throw new ProjectionError(
         `Failed to parse json, expected array, received ${typeof json}`
       );
     }
-    const projection = new Projection(projectableSubjects);
+    const projection = new ProjectionSimple(projectableSubjects);
 
     json.forEach((projectionItem) => {
       const { hasError, errorMessages } = Validators.ValidateProjectionProperties(
@@ -114,7 +114,7 @@ export class Projection implements IProjectionEditor {
         throw new ProjectionError("Failed to parse json", errorMessages);
       }
 
-      projection.addSubject(projectionItem as TProjectionProperties);
+      projection.addSubject(projectionItem as TProjectionItemProperties);
     });
     return projection;
   }

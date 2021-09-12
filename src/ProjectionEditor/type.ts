@@ -1,10 +1,10 @@
-export type TProjectionProperties = {
+export type TProjectionItemProperties = {
   subjectId: string;
   sortOrder: number; // between [-1,1]
   columnOrder: number; // any number ok. This is not position
   label: string;
 };
-export type TProjectionPropertiesJson = {
+export type TProjectionItemPropertiesJson = {
   subjectId?: string;
   sortOrder?: number; // between [-1,1]
   columnOrder?: number; // any number ok. This is not position
@@ -17,7 +17,9 @@ export type TProjectionPropertiesUpdatable = {
   columnOrder?: number;
 };
 
-export type TProjectionDictionary = { [projectionKey: string]: TProjectionProperties };
+export type TProjectionDictionary = {
+  [projectionKey: string]: TProjectionItemProperties;
+};
 
-export type TProjectionJson = TProjectionPropertiesJson[];
-export type TProjection = TProjectionProperties[];
+export type TProjectionJson = TProjectionItemPropertiesJson[];
+export type TProjection = TProjectionItemProperties[];

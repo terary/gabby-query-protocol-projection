@@ -16,10 +16,14 @@ import type {
 
 import type {
   TProjectionDictionary,
-  TProjectionProperties,
-  TProjectionPropertiesJson,
+  TProjectionItemProperties,
+  TProjectionItemPropertiesJson,
   TProjectionPropertiesUpdatable,
 } from "./ProjectionEditor";
+
+// deprecated - here for backwards compatibility
+type TProjectionProperties = TProjectionItemProperties;
+type TProjectionPropertiesJson = TProjectionItemPropertiesJson;
 
 export {
   CONSTS,

@@ -11,8 +11,6 @@ export const exampleProjectionEditor = ProjectionEditorFactory.fromJson({
 
 // EXAMPLE_BEGIN
 // something new a different - once
-const x = 3;
-// something new a different - twice
 const projectionItemId = exampleProjectionEditor.addSubject({
   label: "My New Projection Item",
   subjectId: "lastname",
