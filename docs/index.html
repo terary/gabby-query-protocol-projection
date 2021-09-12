@@ -61,18 +61,78 @@
 				<a href="#gabby-query-protocol-projection" id="gabby-query-protocol-projection" style="color: inherit; text-decoration: none;">
 					<h1>gabby-query-protocol-projection</h1>
 				</a>
-				<p><a href="https://app.travis-ci.com/terary/typescript-travis-trial-do-not-use"><img src="https://app.travis-ci.com/terary/typescript-travis-trial-do-not-use.svg?branch=main" alt="Build Status"></a></p>
-				<p>Utility to assist with field selection routines.</p>
+				<p><a href="https://app.travis-ci.com/terary/typescript-travis-trial-do-not-use"><img src="https://app.travis-ci.com/terary/typescript-travis-trial-do-not-use.svg?branch=main" alt="Build Status"></a>
+					<a href="https://codecov.io/gh/terary/gabby-query-protocol-projection"><img src="https://codecov.io/gh/terary/gabby-query-protocol-projection/branch/main/graph/badge.svg?token=EOCDJS5RWC" alt="codecov"></a>
+					<a href="https://github.com/terary/typescript-travis-trial-do-not-use"><img src="https://img.shields.io/badge/awesome-100%25-blue" alt="awesome"></a>
+					<a href="https://github.com/terary/typescript-travis-trial-do-not-use"><img src="https://img.shields.io/badge/GQP-projection-blue" alt="Gabby Query Protocol"></a>
+					<a href="https://lgtm.com/projects/g/terary/gabby-query-protocol-projection/alerts/"><img src="https://img.shields.io/lgtm/alerts/g/terary/gabby-query-protocol-projection.svg?logo=lgtm&logoWidth=18" alt="Total alerts"></a>
+				<a href="https://lgtm.com/projects/g/terary/gabby-query-protocol-projection/context:javascript"><img src="https://img.shields.io/lgtm/grade/javascript/g/terary/gabby-query-protocol-projection.svg?logo=lgtm&logoWidth=18" alt="Language grade: JavaScript"></a></p>
+				<p>Utility to assist with field selection routines. AKA: Column selection utility.</p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h2>Installation</h2>
 				</a>
 				<p>Using npm:</p>
 				<p><code>$ npm install gabby-query-protocol-projection</code></p>
-				<a href="#description" id="description" style="color: inherit; text-decoration: none;">
-					<h3>Description</h3>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h3>Documentation</h3>
 				</a>
 				<p><a href="https://terary.github.io/gabby-query-protocol-projection/">This Repo&#39;s docs</a></p>
 				<p><a href="https://terary.github.io/gabby-query-protocol-www/">Project&#39;s docs</a></p>
+				<p><code>./examples/*</code> contains executable snippets found in documentation.</p>
+				<a href="#description" id="description" style="color: inherit; text-decoration: none;">
+					<h3>Description</h3>
+				</a>
+				<p>This is a sub-project the Gabby Query Protocol. The purpose of this project is to provide utilities for column selection (a projection).</p>
+				<p><strong>projection</strong> - a field, or column, or similar, or a collection thereof.
+				Possible uses of a projection:</p>
+				<ul>
+					<li><code>SELECT [projection]</code></li>
+					<li><code>ORDER BY [projection]</code></li>
+					<li>record definition</li>
+					<li>non-SQL column definition</li>
+				</ul>
+				<a href="#main-classestypes" id="main-classestypes" style="color: inherit; text-decoration: none;">
+					<h3>Main classes/types</h3>
+				</a>
+				<p>A projection item:</p>
+				<pre><code class="language-ts"><span style="color: #0000FF">type</span><span style="color: #000000"> </span><span style="color: #267F99">TProjectionItemProperties</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">  </span><span style="color: #001080">subjectId</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #001080">sortOrder</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">; </span><span style="color: #008000">// between [-1,1]</span>
+<span style="color: #000000">  </span><span style="color: #001080">columnOrder</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">; </span><span style="color: #008000">// any number ok. This is not position</span>
+<span style="color: #000000">  </span><span style="color: #001080">label</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">};</span>
+</code></pre>
+				<p>A projection:</p>
+				<pre><code class="language-ts"><span style="color: #0000FF">type</span><span style="color: #000000"> </span><span style="color: #267F99">TProjection</span><span style="color: #000000"> = </span><span style="color: #267F99">TProjectionItemProperties</span><span style="color: #000000">[];</span>
+</code></pre>
+				<p>A Projection Editor:</p>
+				<pre><code class="language-ts"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">interface</span><span style="color: #000000"> </span><span style="color: #267F99">IProjectionEditor</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">addSubject</span><span style="color: #000000">(</span><span style="color: #001080">projection</span><span style="color: #000000">: </span><span style="color: #267F99">TProjectionItemProperties</span><span style="color: #000000">): </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+
+<span style="color: #000000">  </span><span style="color: #795E26">getProjectableSubjectsDictionary</span><span style="color: #000000">(): </span><span style="color: #267F99">IProjectableSubjectDictionary</span><span style="color: #000000">;</span>
+
+<span style="color: #000000">  </span><span style="color: #795E26">getSubProjectionBySubjectId</span><span style="color: #000000">(</span><span style="color: #001080">subjectId</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">): </span><span style="color: #267F99">TProjectionDictionary</span><span style="color: #000000">;</span>
+
+<span style="color: #000000">  </span><span style="color: #795E26">getKeys</span><span style="color: #000000">(): </span><span style="color: #267F99">string</span><span style="color: #000000">[];</span>
+
+<span style="color: #000000">  </span><span style="color: #795E26">getProjectionOrderByColumPosition</span><span style="color: #000000">(): </span><span style="color: #267F99">TProjectionDictionary</span><span style="color: #000000">;</span>
+
+<span style="color: #000000">  </span><span style="color: #795E26">getProjectionSubject</span><span style="color: #000000">(</span><span style="color: #001080">key</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">): </span><span style="color: #267F99">TProjectionItemProperties</span><span style="color: #000000">;</span>
+
+<span style="color: #000000">  </span><span style="color: #795E26">removeProjectionSubject</span><span style="color: #000000">(</span><span style="color: #001080">key</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000">;</span>
+
+<span style="color: #000000">  </span><span style="color: #795E26">updateSubject</span><span style="color: #000000">(</span><span style="color: #001080">key</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">, </span><span style="color: #001080">props</span><span style="color: #000000">: </span><span style="color: #267F99">TProjectionPropertiesUpdatable</span><span style="color: #000000">): </span><span style="color: #267F99">void</span><span style="color: #000000">;</span>
+
+<span style="color: #000000">  </span><span style="color: #795E26">toJson</span><span style="color: #000000">(): </span><span style="color: #267F99">TProjectionItemProperties</span><span style="color: #000000">[];</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<p>Projectable Subject (field properties to be used to create projectionItem)</p>
+				<pre><code class="language-ts"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">type</span><span style="color: #000000"> </span><span style="color: #267F99">TProjectableSubjectProperties</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">  </span><span style="color: #001080">isSortable</span><span style="color: #000000">: </span><span style="color: #267F99">boolean</span><span style="color: #000000">; </span><span style="color: #008000">// this would likely used in things like ORDER BY</span>
+<span style="color: #000000">  </span><span style="color: #001080">datatype</span><span style="color: #000000">: </span><span style="color: #267F99">TSupportedDatatype</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #001080">defaultLabel</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">};</span>
+</code></pre>
 				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
 					<h2>Example</h2>
 				</a>
@@ -84,8 +144,8 @@
 <span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">projectableSubjectDictionaryJson</span><span style="color: #000000"> } = </span><span style="color: #0070C1">EXAMPLE_JSON_BLUE_SKIES</span><span style="color: #000000">;</span>
 
 <span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">exampleProjectionEditor</span><span style="color: #000000"> = </span><span style="color: #001080">ProjectionEditorFactory</span><span style="color: #000000">.</span><span style="color: #795E26">fromJson</span><span style="color: #000000">({</span>
-<span style="color: #000000">  </span><span style="color: #001080">projectionItemsJson</span><span style="color: #000000">,</span>
 <span style="color: #000000">  </span><span style="color: #001080">projectableSubjectDictionaryJson</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">projectionItemsJson</span><span style="color: #000000">, </span><span style="color: #008000">// optional, if undefined a new default projection created</span>
 <span style="color: #000000">});</span>
 
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">projectionItemId</span><span style="color: #000000"> = </span><span style="color: #001080">exampleProjectionEditor</span><span style="color: #000000">.</span><span style="color: #795E26">addSubject</span><span style="color: #000000">({</span>
@@ -99,25 +159,12 @@
 
 <span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">exampleProjectionEditor</span><span style="color: #000000">.</span><span style="color: #795E26">getProjectionOrderByColumPosition</span><span style="color: #000000">());</span>
 </code></pre>
-				<a href="#terminology" id="terminology" style="color: inherit; text-decoration: none;">
-					<h3>terminology</h3>
-				</a>
-				<p><strong>projection</strong> - a field, or column, or similar, or a collection thereof.
-				Possible uses of a projection:</p>
-				<ul>
-					<li><code>SELECT [projection]</code></li>
-					<li><code>ORDER BY [projection]</code></li>
-					<li>record definition</li>
-					<li>non-SQL column definition</li>
-				</ul>
 				<a href="#npm-run" id="npm-run" style="color: inherit; text-decoration: none;">
 					<h3>npm run</h3>
 				</a>
 				<p><strong>gabby:build</strong><br>Transpile to js includes source map
 				and types, target directory &#39;./dist&#39;</p>
 				<p><strong>gabby:pack</strong><br>Create npm friendly tgz package</p>
-				<p><strong>gabby:ship</strong><br>All the above and cp file to
-				publicly available website</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -131,9 +178,6 @@
 					</li>
 					<li class=" tsd-kind-namespace">
 						<a href="modules/ProjectableDictionaryFactory.html">Projectable<wbr>Dictionary<wbr>Factory</a>
-					</li>
-					<li class=" tsd-kind-namespace">
-						<a href="modules/ProjectionEditorFactory.html">Projection<wbr>Editor<wbr>Factory</a>
 					</li>
 				</ul>
 			</nav>
@@ -174,6 +218,9 @@
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="modules.html#EXAMPLE_JSON_BLUE_SKIES" class="tsd-kind-icon">EXAMPLE_<wbr>JSON_<wbr>BLUE_<wbr>SKIES</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="modules.html#ProjectionEditorFactory" class="tsd-kind-icon">Projection<wbr>Editor<wbr>Factory</a>
 					</li>
 				</ul>
 			</nav>
