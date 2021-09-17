@@ -33,12 +33,8 @@ export class ProjectionSimple implements IProjectionEditor {
     return projectionSubjectId;
   }
 
-  getProjectableSubjectsDictionary(): IProjectableSubjectDictionary {
-    return this._projectableSubjects;
-    //    return cloneDeep(this._projectableSubjects);
-  }
-
-  getSubProjectionBySubjectId(subjectId: string): TProjectionDictionary {
+  filterProjectionBySubjectId(subjectId: string): TProjectionDictionary {
+    // a subset projection that contains only given subjectId
     const subjects: TProjectionDictionary = {};
     Object.entries(this._projections).forEach(([projectionKey, subject]) => {
       if (subjectId === subject.subjectId) {
@@ -46,6 +42,16 @@ export class ProjectionSimple implements IProjectionEditor {
       }
     });
     return subjects;
+  }
+
+  getProjectableSubjectsDictionary(): IProjectableSubjectDictionary {
+    return this._projectableSubjects;
+    //    return cloneDeep(this._projectableSubjects);
+  }
+
+  getSubProjectionBySubjectId(subjectId: string): TProjectionDictionary {
+    // a subset projection that contains only given subjectId
+    return this.filterProjectionBySubjectId(subjectId);
   }
 
   getKeys(): string[] {

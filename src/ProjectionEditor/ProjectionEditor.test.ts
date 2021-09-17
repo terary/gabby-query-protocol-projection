@@ -116,7 +116,8 @@ describe("Projection", () => {
       expect(projectables.constructor.name).toBe("ProjectableSubjectDictionary");
     }); //
   });
-  describe(".getSubProjectionBySubjectId", () => {
+
+  describe(".filterProjectionBySubjectId", () => {
     it("Should return subset projection, only subject with given subjectId", () => {
       // set-up
       const projection = ProjectionSimple.fromFlatFile(
@@ -125,7 +126,7 @@ describe("Projection", () => {
       );
 
       // exercise
-      const subProjection = projection.getSubProjectionBySubjectId("firstname");
+      const subProjection = projection.filterProjectionBySubjectId("firstname");
 
       // post conditions
       expect(Object.keys(subProjection).length).toBe(1);
@@ -140,7 +141,7 @@ describe("Projection", () => {
       );
 
       // exercise
-      const subProjection = projection.getSubProjectionBySubjectId("DOES_NOT_EXIST");
+      const subProjection = projection.filterProjectionBySubjectId("DOES_NOT_EXIST");
 
       // post conditions
       expect(Object.keys(subProjection).length).toBe(0);
