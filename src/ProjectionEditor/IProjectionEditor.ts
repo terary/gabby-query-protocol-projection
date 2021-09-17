@@ -8,8 +8,11 @@ import type { IProjectableSubjectDictionary } from "../ProjectableSubjectDiction
 export interface IProjectionEditor {
   addSubject(projection: TProjectionItemProperties): string;
 
+  filterProjectionBySubjectId(subjectId: string): TProjectionDictionary;
+
   getProjectableSubjectsDictionary(): IProjectableSubjectDictionary;
 
+  // deprecated - use 'filterProjectionBySubjectId'
   getSubProjectionBySubjectId(subjectId: string): TProjectionDictionary;
 
   getKeys(): string[];
