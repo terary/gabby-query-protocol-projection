@@ -59,17 +59,23 @@ export class ProjectionSimple implements IProjectionEditor {
   }
 
   getProjectionOrderByColumPosition(): TProjectionDictionary {
-    const a = Object.assign(
+    return this.getProjectionOrderByProperty("columnOrder");
+  }
+
+  getProjectionOrderByProperty(
+    property: keyof TProjectionItemProperties
+  ): TProjectionDictionary {
+    return Object.assign(
       {},
       ...Object.entries(this._projections)
-        .sort(([keyA, propA], [keyB, propB]) => {
-          return propA.columnOrder - propB.columnOrder;
+        .sort(([xKey, xObject], [yKey, yObject]) => {
+          // equality check not necessary for our purposes
+          return xObject[property] > yObject[property] ? 1 : -1;
         })
-        .map(([index, props]) => {
-          return { [index]: { ...props } };
+        .map(([key, value]) => {
+          return { [key]: value };
         })
     );
-    return a;
   }
 
   getProjectionSubject(key: string): TProjectionItemProperties {

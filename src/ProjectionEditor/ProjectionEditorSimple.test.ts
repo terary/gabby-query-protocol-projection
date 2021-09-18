@@ -4,6 +4,7 @@ import { ProjectionSimple } from "./ProjectionSimple";
 import { ProjectionError } from "../ProjectionError";
 import { EXAMPLE_JSON_BLUE_SKIES } from "../external-files";
 import { ProjectableDictionaryFactory } from "../ProjectableSubjectDictionary";
+import { TProjectionItemProperties } from "../../dist/ProjectionEditor";
 const projectionBlueSkyJson = EXAMPLE_JSON_BLUE_SKIES.projectionJson;
 
 const projectableSubjectDictionaryJson = cloneDeep(
@@ -116,7 +117,70 @@ describe("Projection", () => {
       expect(projectables.constructor.name).toBe("ProjectableSubjectDictionary");
     }); //
   });
+  describe(".getProjectionOrderByColumPosition", () => {
+    it("Should return projection ordered by colum", () => {
+      // set-up
+      const projection = ProjectionSimple.fromFlatFile(
+        projectionBlueSkyJson,
+        projectableSubjects
+      );
 
+      // exercise
+      const orderedProjection = projection.getProjectionOrderByColumPosition();
+
+      // post conditions
+
+      const columnOrders = Object.entries(orderedProjection).map(
+        ([projectionKey, projection]) => {
+          return projection.columnOrder;
+        }
+      );
+      expect(columnOrders.length).toBe(Object.keys(projectionBlueSkyJson).length);
+      expect(columnOrders.length).toBe(5);
+
+      let prevColumOrder = columnOrders[0];
+      for (let i = 1; i < columnOrders.length; i++) {
+        expect(prevColumOrder <= columnOrders[i]).toBeTruthy();
+        prevColumOrder = columnOrders[i];
+      }
+    });
+  });
+  describe(".getProjectionOrderByProperty", () => {
+    it("Should return projection ordered by given property", () => {
+      // set-up
+      const projection = ProjectionSimple.fromFlatFile(
+        projectionBlueSkyJson,
+        projectableSubjects
+      );
+
+      type PropertyName = keyof TProjectionItemProperties;
+
+      ["columnOrder", "label", "sortOrder", "subjectId"].forEach((propertyName) => {
+        const targetPropertyName = propertyName as PropertyName;
+
+        const orderedProjection = projection.getProjectionOrderByProperty(
+          targetPropertyName as PropertyName
+        );
+
+        // post conditions
+
+        const propertiesInOrder = Object.entries(orderedProjection).map(
+          ([projectionKey, projection]) => {
+            return projection[targetPropertyName];
+          }
+        );
+        expect(propertiesInOrder.length).toBe(Object.keys(projectionBlueSkyJson).length);
+        expect(propertiesInOrder.length).toBe(5);
+
+        let prevColumOrder = propertiesInOrder[0];
+        for (let i = 1; i < propertiesInOrder.length; i++) {
+          expect(prevColumOrder <= propertiesInOrder[i]).toBeTruthy();
+          prevColumOrder = propertiesInOrder[i];
+        }
+      });
+      // exercise
+    });
+  });
   describe(".filterProjectionBySubjectId", () => {
     it("Should return subset projection, only subject with given subjectId", () => {
       // set-up
