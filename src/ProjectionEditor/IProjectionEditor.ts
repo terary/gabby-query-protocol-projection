@@ -19,6 +19,10 @@ export interface IProjectionEditor {
 
   getProjectionOrderByColumPosition(): TProjectionDictionary;
 
+  getProjectionOrderByProperty(
+    property: keyof TProjectionItemProperties
+  ): TProjectionDictionary;
+
   getProjectionSubject(key: string): TProjectionItemProperties;
 
   removeProjectionSubject(key: string): void;

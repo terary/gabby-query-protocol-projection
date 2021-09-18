@@ -1,3 +1,5 @@
+import { TProjectionItemProperties } from "../ProjectionEditor";
+
 export const SUPPORTED_DATATYPES = [
   "integer",
   "decimal",
@@ -7,3 +9,10 @@ export const SUPPORTED_DATATYPES = [
 ];
 
 export const DECIMAL_SYMBOL = ".";
+
+export const PROJECT_ITEM_PROPERTY_NAMES = [
+  "columnOrder",
+  "label",
+  "sortOrder",
+  "subjectId",
+] as (keyof TProjectionItemProperties)[];
