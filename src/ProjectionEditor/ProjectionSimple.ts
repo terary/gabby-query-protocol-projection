@@ -9,6 +9,7 @@ import { ProjectionError } from "../ProjectionError";
 import { IProjectionEditor } from "./IProjectionEditor";
 import { Validators } from "../validators";
 import { TProjectionItemPropertiesJson } from "./type";
+import { TProjectionItemPropertyName } from "../common";
 
 /**
  * Example usage:
@@ -63,7 +64,7 @@ export class ProjectionSimple implements IProjectionEditor {
   }
 
   getProjectionOrderByProperty(
-    property: keyof TProjectionItemProperties
+    property: TProjectionItemPropertyName
   ): TProjectionDictionary {
     return Object.assign(
       {},

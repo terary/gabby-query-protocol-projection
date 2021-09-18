@@ -4,7 +4,9 @@ import { ProjectionSimple } from "./ProjectionSimple";
 import { ProjectionError } from "../ProjectionError";
 import { EXAMPLE_JSON_BLUE_SKIES } from "../external-files";
 import { ProjectableDictionaryFactory } from "../ProjectableSubjectDictionary";
-import { TProjectionItemProperties } from "../../dist/ProjectionEditor";
+import { TProjectionItemProperties } from "./type";
+import { CONSTS } from "../common";
+// import { TProjectionItemProperties } from "../../dist/ProjectionEditor";
 const projectionBlueSkyJson = EXAMPLE_JSON_BLUE_SKIES.projectionJson;
 
 const projectableSubjectDictionaryJson = cloneDeep(
@@ -153,20 +155,14 @@ describe("Projection", () => {
         projectableSubjects
       );
 
-      type PropertyName = keyof TProjectionItemProperties;
-
-      ["columnOrder", "label", "sortOrder", "subjectId"].forEach((propertyName) => {
-        const targetPropertyName = propertyName as PropertyName;
-
-        const orderedProjection = projection.getProjectionOrderByProperty(
-          targetPropertyName as PropertyName
-        );
+      CONSTS.PROJECT_ITEM_PROPERTY_NAMES.forEach((propertyName) => {
+        // exercise
+        const orderedProjection = projection.getProjectionOrderByProperty(propertyName);
 
         // post conditions
-
         const propertiesInOrder = Object.entries(orderedProjection).map(
           ([projectionKey, projection]) => {
-            return projection[targetPropertyName];
+            return projection[propertyName];
           }
         );
         expect(propertiesInOrder.length).toBe(Object.keys(projectionBlueSkyJson).length);
@@ -178,7 +174,6 @@ describe("Projection", () => {
           prevColumOrder = propertiesInOrder[i];
         }
       });
-      // exercise
     });
   });
   describe(".filterProjectionBySubjectId", () => {
