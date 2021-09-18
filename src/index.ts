@@ -1,5 +1,5 @@
 import { CONSTS } from "./common";
-import type { TSupportedDatatype } from "./common/type";
+import type { TSupportedDatatype, TProjectionItemPropertyName } from "./common/type";
 
 import { EXAMPLE_JSON_BLUE_SKIES } from "./external-files";
 import { Projection, ProjectionEditorFactory } from "./ProjectionEditor";
@@ -39,8 +39,8 @@ export type {
   IProjectableSubjectDictionary,
   TProjectableSubjectPropertiesJson,
   TProjectableSubjectsDictionaryJson,
-  // TProjectableSubjectsDictionary, // projectable - not actual
-  TProjectionDictionary, // dictionary -- return value for state management. Not applicable in lib but left here because why not
+  TProjectionDictionary,
+  TProjectionItemPropertyName, // "columnOrder" | "label" | "sortOrder" | "subjectId";
   TProjectionProperties, // actual projection item,
   TProjectionPropertiesJson,
   TProjectionPropertiesUpdatable, // subset properties of actual that can be updated
