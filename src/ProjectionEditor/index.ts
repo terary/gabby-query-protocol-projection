@@ -1,19 +1,10 @@
-/* eslint-disable import/prefer-default-export */
-import { ProjectionSimple } from "./ProjectionSimple";
-import { IProjectionEditor } from "./IProjectionEditor";
-import { ProjectionEditorFactory } from "./ProjectionEditorFactory";
-import type {
+export { IProjectionEditor } from "./IProjectionEditor";
+export { ProjectionEditorFactory } from "./ProjectionEditorFactory";
+export type {
   TProjectionItemProperties,
   TProjectionItemPropertiesJson,
   TProjectionDictionary,
   TProjectionPropertiesUpdatable,
 } from "./type";
 
-export { ProjectionSimple as Projection, ProjectionEditorFactory };
-export type {
-  TProjectionItemProperties,
-  TProjectionItemPropertiesJson,
-  TProjectionDictionary,
-  TProjectionPropertiesUpdatable,
-  IProjectionEditor,
-};
+export { ProjectionSimple as Projection } from "./ProjectionSimple";
