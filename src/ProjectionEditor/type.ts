@@ -4,12 +4,7 @@ export type TProjectionItemProperties = {
   columnOrder: number; // any number ok. This is not position
   label: string;
 };
-export type TProjectionItemPropertiesJson = {
-  subjectId?: string;
-  sortOrder?: number; // between [-1,1]
-  columnOrder?: number; // any number ok. This is not position
-  label?: string;
-};
+export type TProjectionItemPropertiesJson = Partial<TProjectionItemProperties>;
 
 export type TProjectionPropertiesUpdatable = {
   sortOrder?: number;
