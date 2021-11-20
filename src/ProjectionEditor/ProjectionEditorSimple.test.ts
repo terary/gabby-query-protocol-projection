@@ -1,11 +1,12 @@
 import { cloneDeep } from "lodash";
 
-import { ProjectionSimple } from "./ProjectionSimple";
+import { ProjectionEditorSimple } from "./ProjectionEditorSimple";
 import { ProjectionError } from "../ProjectionError";
 import { EXAMPLE_JSON_BLUE_SKIES } from "../external-files";
 import { ProjectableDictionaryFactory } from "../ProjectableSubjectDictionary";
 import { TProjectionItemProperties } from "./type";
 import { CONSTS } from "../common";
+import { TProjectionItemPropertiesJson } from "../../dist/ProjectionEditor";
 // import { TProjectionItemProperties } from "../../dist/ProjectionEditor";
 const projectionBlueSkyJson = EXAMPLE_JSON_BLUE_SKIES.projectionJson;
 
@@ -27,11 +28,11 @@ type ProjectionPropertiesTesting = {
 describe("Projection", () => {
   describe(".fromJson", () => {
     it("Should create a projection instance (smoke test/blue skies)", () => {
-      const projection = ProjectionSimple.fromFlatFile(
+      const projection = ProjectionEditorSimple.fromFlatFile(
         projectionBlueSkyJson,
         projectableSubjects
       );
-      expect(ProjectionSimple.toFlatFile(projection).length).toStrictEqual(5);
+      expect(ProjectionEditorSimple.toFlatFile(projection).length).toStrictEqual(5);
     });
     describe("Validation", () => {
       let testProperties: ProjectionPropertiesTesting;
@@ -45,7 +46,7 @@ describe("Projection", () => {
       });
       it("Should throw array of flatProjection is not an array", () => {
         const expectError = () => {
-          ProjectionSimple.fromFlatFile(
+          ProjectionEditorSimple.fromFlatFile(
             testProperties as unknown as any[],
             projectableSubjects
           );
@@ -111,7 +112,7 @@ describe("Projection", () => {
   }); // describe validation?
   describe(".getProjectableSubjectsDictionary", () => {
     it("Should return an ProjectableSubjects", () => {
-      const projection = ProjectionSimple.fromFlatFile(
+      const projection = ProjectionEditorSimple.fromFlatFile(
         projectionBlueSkyJson,
         projectableSubjects
       );
@@ -122,7 +123,7 @@ describe("Projection", () => {
   describe(".getProjectionOrderByColumPosition", () => {
     it("Should return projection ordered by colum", () => {
       // set-up
-      const projection = ProjectionSimple.fromFlatFile(
+      const projection = ProjectionEditorSimple.fromFlatFile(
         projectionBlueSkyJson,
         projectableSubjects
       );
@@ -150,7 +151,7 @@ describe("Projection", () => {
   describe(".getProjectionOrderByProperty", () => {
     it("Should return projection ordered by given property", () => {
       // set-up
-      const projection = ProjectionSimple.fromFlatFile(
+      const projection = ProjectionEditorSimple.fromFlatFile(
         projectionBlueSkyJson,
         projectableSubjects
       );
@@ -179,7 +180,7 @@ describe("Projection", () => {
   describe(".filterProjectionBySubjectId", () => {
     it("Should return subset projection, only subject with given subjectId", () => {
       // set-up
-      const projection = ProjectionSimple.fromFlatFile(
+      const projection = ProjectionEditorSimple.fromFlatFile(
         projectionBlueSkyJson,
         projectableSubjects
       );
@@ -194,7 +195,7 @@ describe("Projection", () => {
     });
     it("Should always return an object, regardless if subjectId is found", () => {
       // set-up
-      const projection = ProjectionSimple.fromFlatFile(
+      const projection = ProjectionEditorSimple.fromFlatFile(
         projectionBlueSkyJson,
         projectableSubjects
       );
@@ -206,11 +207,126 @@ describe("Projection", () => {
       expect(Object.keys(subProjection).length).toBe(0);
     });
   });
+  describe(".addProjectionItem", () => {
+    it("Should add a projection item", () => {
+      const projection = ProjectionEditorSimple.fromFlatFile(
+        projectionBlueSkyJson,
+        projectableSubjects
+      );
+      const newProjectionItem = {
+        subjectId: "firstname",
+        label: "newLabel",
+        sortOrder: 1,
+        columnOrder: 1,
+      };
+
+      const projectionKey = projection.addProjectionItem(newProjectionItem);
+
+      expect(projection.getProjectedItemByProjectionKey(projectionKey)).toStrictEqual(
+        newProjectionItem
+      );
+    });
+    it("Should throw validation errors missing subjectId", () => {
+      const projection = ProjectionEditorSimple.fromFlatFile(
+        projectionBlueSkyJson,
+        projectableSubjects
+      );
+      const missingSubjectProjectionItem: TProjectionItemPropertiesJson = {
+        //subjectId: "firstname",
+        label: "newLabel",
+        sortOrder: 1,
+        columnOrder: 1,
+      };
+      const willThrowMissingSubjectId = () => {
+        projection.addProjectionItem(
+          missingSubjectProjectionItem as TProjectionItemProperties
+        );
+      };
+
+      expect(willThrowMissingSubjectId).toThrowError("Failed to parse json");
+    });
+    it("Should throw validation errors unknown subjectId", () => {
+      const projection = ProjectionEditorSimple.fromFlatFile(
+        projectionBlueSkyJson,
+        projectableSubjects
+      );
+      const missingSubjectProjectionItem: TProjectionItemPropertiesJson = {
+        subjectId: "DOES_NOT_EXIST",
+        label: "newLabel",
+        sortOrder: 1,
+        columnOrder: 1,
+      };
+      const willThrowMissingSubjectId = () => {
+        projection.addProjectionItem(
+          missingSubjectProjectionItem as TProjectionItemProperties
+        );
+      };
+
+      expect(willThrowMissingSubjectId).toThrowError("Failed to parse json");
+    });
+    it("Should throw validation errors missing label", () => {
+      const projection = ProjectionEditorSimple.fromFlatFile(
+        projectionBlueSkyJson,
+        projectableSubjects
+      );
+      const missingSubjectProjectionItem: TProjectionItemPropertiesJson = {
+        subjectId: "firstname",
+        // label: "newLabel",
+        sortOrder: 1,
+        columnOrder: 1,
+      };
+      const willThrowMissingSubjectId = () => {
+        projection.addProjectionItem(
+          missingSubjectProjectionItem as TProjectionItemProperties
+        );
+      };
+
+      expect(willThrowMissingSubjectId).toThrowError("Failed to parse json");
+    });
+    it("Should throw validation errors missing sortOrder", () => {
+      const projection = ProjectionEditorSimple.fromFlatFile(
+        projectionBlueSkyJson,
+        projectableSubjects
+      );
+      const missingSubjectProjectionItem: TProjectionItemPropertiesJson = {
+        subjectId: "firstname",
+        label: "newLabel",
+        //sortOrder: 1,
+        columnOrder: 1,
+      };
+      const willThrowMissingSubjectId = () => {
+        projection.addProjectionItem(
+          missingSubjectProjectionItem as TProjectionItemProperties
+        );
+      };
+
+      expect(willThrowMissingSubjectId).toThrowError("Failed to parse json");
+    });
+    it("Should throw validation errors missing columnOrder", () => {
+      const projection = ProjectionEditorSimple.fromFlatFile(
+        projectionBlueSkyJson,
+        projectableSubjects
+      );
+      const missingSubjectProjectionItem: TProjectionItemPropertiesJson = {
+        subjectId: "firstname",
+        label: "newLabel",
+        sortOrder: 1,
+        // columnOrder: 1,
+      };
+      const willThrowMissingSubjectId = () => {
+        projection.addProjectionItem(
+          missingSubjectProjectionItem as TProjectionItemProperties
+        );
+      };
+
+      expect(willThrowMissingSubjectId).toThrowError("Failed to parse json");
+    });
+  }); // describe(".addProjectionItem",
   describe(".updateSubject", () => {
     //describe(".getProjectableSubjectsDictionary"
     it("Should return an object", () => {
       // set-up
-      const projection = ProjectionSimple.fromFlatFile(
+      const projection = ProjectionEditorSimple.fromFlatFile(
         projectionBlueSkyJson,
         projectableSubjects
       );
@@ -249,7 +365,7 @@ describe("Projection", () => {
   describe(".removeSubject", () => {
     it("Should remove subject with key", () => {
       // setup
-      const projection = ProjectionSimple.fromFlatFile(
+      const projection = ProjectionEditorSimple.fromFlatFile(
         projectionBlueSkyJson,
         projectableSubjects
       );
@@ -279,11 +395,15 @@ describe("Projection", () => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const expectParseError = (json: any, expectedErrorMessage: string) => {
   try {
-    ProjectionSimple.fromFlatFile(json, projectableSubjects);
+    ProjectionEditorSimple.fromFlatFile(json, projectableSubjects);
     throw Error("Test Failed - expected .fromFlatFile to throw error - it did not.");
   } catch (e) {
-    expect(e.constructor.name).toBe("ProjectionError");
-    expect(e.message).toBe("Failed to parse json");
-    expect(e.parseErrors[0]).toBe(expectedErrorMessage);
+    if (e instanceof ProjectionError) {
+      expect(e.constructor.name).toBe("ProjectionError");
+      expect(e.message).toBe("Failed to parse json");
+      expect(e.parseErrors[0]).toBe(expectedErrorMessage);
+    } else {
+      throw Error(`Test Failed - unexpected. Expected '' Error but got '${typeof e}'`);
+    }
   }
 };

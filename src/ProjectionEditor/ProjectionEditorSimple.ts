@@ -17,7 +17,7 @@ import { TProjectionItemPropertyName } from "../common";
  * [[include:ExampleProjectionEditor2.html]]
  * [[include:ExampleProjectionEditor3.html]]
  */
-export class ProjectionSimple implements IProjectionEditor {
+export class ProjectionEditorSimple implements IProjectionEditor {
   private _projections: TProjectionDictionary = {};
 
   private _projectableSubjects: IProjectableSubjectDictionary;
@@ -28,10 +28,23 @@ export class ProjectionSimple implements IProjectionEditor {
     this._projectableSubjects = projectableSubjects;
   }
 
-  addSubject(projection: TProjectionItemProperties): string {
+  addProjectionItem(projectionItem: TProjectionItemProperties) {
+    const validation = Validators.ValidateProjectionProperties(
+      projectionItem,
+      this._projectableSubjects
+    );
+    if (validation.hasError) {
+      throw new ProjectionError("Failed to parse json", validation.errorMessages);
+    }
+
     const projectionSubjectId = this._nextIndex();
-    this._projections[projectionSubjectId] = projection;
+    this._projections[projectionSubjectId] = projectionItem;
     return projectionSubjectId;
+  }
+
+  //deprecated - use addProjectionItem
+  addSubject(projection: TProjectionItemProperties): string {
+    return this.addProjectionItem(projection);
   }
 
   filterProjectionBySubjectId(subjectId: string): TProjectionDictionary {
@@ -79,16 +92,42 @@ export class ProjectionSimple implements IProjectionEditor {
     );
   }
 
-  getProjectionSubject(key: string): TProjectionItemProperties {
-    return this._projections[key];
+  getProjectedItemByProjectionKey(projectionKey: string): TProjectionItemProperties {
+    return this._projections[projectionKey];
   }
 
-  removeProjectionSubject(key: string): void {
+  /**
+   * @deprecated - use getProjectedItemByProjectionKey
+   * @param key
+   * @returns
+   */
+  getProjectionSubject(key: string): TProjectionItemProperties {
+    return this.getProjectedItemByProjectionKey(key);
+  }
+
+  removeProjectionItem(key: string): void {
     delete this._projections[key];
   }
 
+  /**
+   * @deprecated - use removeProjectionItem
+   * @param key
+   */
+  removeProjectionSubject(key: string): void {
+    this.removeProjectionItem(key);
+  }
+
+  /**
+   * @deprecated use 'updateProjectionItem'
+   * @param key
+   * @param props
+   */
   updateSubject(key: string, props: TProjectionPropertiesUpdatable): void {
-    const currentProjection = this.getProjectionSubject(key);
+    this.updateProjectionItem(key, props);
+  }
+
+  updateProjectionItem(key: string, props: TProjectionPropertiesUpdatable): void {
+    const currentProjection = this.getProjectedItemByProjectionKey(key);
     const changeProjection = pick(props, "sortOrder", "label", "columnOrder");
     this._projections[key] = { ...currentProjection, ...changeProjection };
   }
@@ -101,21 +140,21 @@ export class ProjectionSimple implements IProjectionEditor {
     return Object.values(this._projections);
   }
 
-  // TODO - *tmc* -- from/to JSON should acception projectionProperties[]
-  static toFlatFile(projection: ProjectionSimple) {
+  // TODO - *tmc* -- from/to JSON should accept projectionProperties[]
+  static toFlatFile(projection: ProjectionEditorSimple) {
     return Object.values(projection.getProjectionOrderByColumPosition());
   }
 
   static fromFlatFile(
     json: TProjectionItemPropertiesJson[],
     projectableSubjects: IProjectableSubjectDictionary
-  ): ProjectionSimple {
+  ): ProjectionEditorSimple {
     if (!Array.isArray(json)) {
       throw new ProjectionError(
         `Failed to parse json, expected array, received ${typeof json}`
       );
     }
-    const projection = new ProjectionSimple(projectableSubjects);
+    const projection = new ProjectionEditorSimple(projectableSubjects);
 
     json.forEach((projectionItem) => {
       const { hasError, errorMessages } = Validators.ValidateProjectionProperties(
