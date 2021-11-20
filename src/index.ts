@@ -24,6 +24,7 @@ export type {
 
 export type {
   TProjectionDictionary,
+  TProjectionItemProperties, //TODO - *tmc* - sort this mess, and remove the TProjectionProperties
   TProjectionItemProperties as TProjectionProperties,
   TProjectionItemPropertiesJson as TProjectionPropertiesJson,
   TProjectionPropertiesUpdatable,

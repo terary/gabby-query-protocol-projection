@@ -210,13 +210,18 @@ describe("Projection", () => {
         return projectionItem.columnOrder >= 0;
       };
       const sortColumnsFilter = (projectionItem: TProjectionItemProperties) => {
-        return projectionItem.columnOrder != 0;
+        return projectionItem.sortOrder != 0;
+      };
+      const nonSortColumnsFilter = (projectionItem: TProjectionItemProperties) => {
+        return projectionItem.sortOrder === 0;
       };
       const visibleColumns = projection.filterProjection(visibleColumnsFilter);
       const sortColumns = projection.filterProjection(sortColumnsFilter);
+      const nonSortColumns = projection.filterProjection(nonSortColumnsFilter);
 
       expect(visibleColumns.length).toStrictEqual(3);
       expect(sortColumns.length).toStrictEqual(3);
+      expect(nonSortColumns.length).toStrictEqual(1);
     });
   }); // describe(".filterProjection"
   describe(".filterProjectionBySubjectId", () => {
