@@ -46,8 +46,18 @@ export class ProjectionEditorSimple implements IProjectionEditor {
   addSubject(projection: TProjectionItemProperties): string {
     return this.addProjectionItem(projection);
   }
+  filterProjection(filter: (projection: TProjectionItemProperties) => boolean) {
+    return Object.entries(this._projections)
+      .filter(([key, value]) => {
+        return filter(value);
+      })
+      .map(([key, value]) => {
+        return value;
+      }) as TProjectionItemProperties[];
+  }
 
   filterProjectionBySubjectId(subjectId: string): TProjectionDictionary {
+    // this is {[key]:ProjectionItem}
     // a subset projection that contains only given subjectId
     const subjects: TProjectionDictionary = {};
     Object.entries(this._projections).forEach(([projectionKey, subject]) => {

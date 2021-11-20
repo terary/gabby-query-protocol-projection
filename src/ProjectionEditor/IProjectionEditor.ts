@@ -1,3 +1,4 @@
+//cspell:ignore Projectable
 import type {
   TProjectionDictionary,
   TProjectionItemProperties,
@@ -9,6 +10,9 @@ export interface IProjectionEditor {
   addSubject(projection: TProjectionItemProperties): string;
 
   filterProjectionBySubjectId(subjectId: string): TProjectionDictionary;
+  filterProjection(
+    filter: (projectionItem: TProjectionItemProperties) => boolean
+  ): TProjectionItemProperties[];
 
   getProjectableSubjectsDictionary(): IProjectableSubjectDictionary;
 

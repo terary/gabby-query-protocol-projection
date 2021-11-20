@@ -7,7 +7,7 @@ import { ProjectableDictionaryFactory } from "../ProjectableSubjectDictionary";
 import { TProjectionItemProperties } from "./type";
 import { CONSTS } from "../common";
 import { TProjectionItemPropertiesJson } from "../../dist/ProjectionEditor";
-// import { TProjectionItemProperties } from "../../dist/ProjectionEditor";
+
 const projectionBlueSkyJson = EXAMPLE_JSON_BLUE_SKIES.projectionJson;
 
 const projectableSubjectDictionaryJson = cloneDeep(
@@ -177,6 +177,48 @@ describe("Projection", () => {
       });
     });
   });
+  // filterProjection
+  describe(".filterProjection", () => {
+    it("Should filter by property", () => {
+      const projection = ProjectionEditorSimple.fromFlatFile([], projectableSubjects);
+      projection.addProjectionItem({
+        subjectId: "firstname",
+        label: "First Name",
+        sortOrder: -1,
+        columnOrder: -1,
+      });
+      projection.addProjectionItem({
+        subjectId: "lastname",
+        label: "Last Name",
+        sortOrder: -1,
+        columnOrder: 0,
+      });
+      projection.addProjectionItem({
+        subjectId: "annualRevenue",
+        label: "Annual Income",
+        sortOrder: 0,
+        columnOrder: 1,
+      });
+      projection.addProjectionItem({
+        subjectId: "numberOfEmployees",
+        label: "Number of Employees",
+        sortOrder: 1,
+        columnOrder: 2,
+      });
+
+      const visibleColumnsFilter = (projectionItem: TProjectionItemProperties) => {
+        return projectionItem.columnOrder >= 0;
+      };
+      const sortColumnsFilter = (projectionItem: TProjectionItemProperties) => {
+        return projectionItem.columnOrder != 0;
+      };
+      const visibleColumns = projection.filterProjection(visibleColumnsFilter);
+      const sortColumns = projection.filterProjection(sortColumnsFilter);
+
+      expect(visibleColumns.length).toStrictEqual(3);
+      expect(sortColumns.length).toStrictEqual(3);
+    });
+  }); // describe(".filterProjection"
   describe(".filterProjectionBySubjectId", () => {
     it("Should return subset projection, only subject with given subjectId", () => {
       // set-up
