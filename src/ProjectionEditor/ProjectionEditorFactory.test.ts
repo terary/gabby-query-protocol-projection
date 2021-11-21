@@ -81,7 +81,7 @@ describe("ProjectionEditorFactory", () => {
       expect(projectionError.parseErrors).toStrictEqual([
         "Projection with subjectId 'firstname' : is missing properties: sortOrder ",
         "Projection with subjectId 'firstname' : 'sortOrder' is not a string type (actual type: undefined)",
-        "Projection with subjectId 'firstname' : 'sortOrder' out of range (-1, 1). actual range: 'undefined')",
+        "Projection with subjectId 'firstname' : invalid sortOrder: 'undefined')",
       ]);
     }
   });

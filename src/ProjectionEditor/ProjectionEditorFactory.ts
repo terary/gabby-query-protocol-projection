@@ -29,7 +29,7 @@ const buildDefaultProjection = (subjectDictionary: IProjectableSubjectDictionary
   });
 };
 // prettier-ignore
-type ProjectionImportExportType = // rename to TProjectionImportExport if moving out of file
+type ProjectionImportExportType = 
   IImportFromJson<ProjectionEditorJson, IProjectionEditor> &
   IExportToJson<IProjectionEditor, ProjectionEditorJson>;
 

@@ -80,14 +80,6 @@ describe("Projection", () => {
           "Projection with subjectId 'subjectIdTest' : 'sortOrder' is not a string type (actual type: string)"
         );
       });
-      // it("Should throw ProjectionError sortOrder out of range", () => {
-      //   testProperties.sortOrder = -3;
-      //   expectParseError(
-      //     [testProperties],
-      //     "Projection with subjectId 'subjectIdTest' : 'sortOrder' out of range (-1, 1). actual range: '-3')"
-      //   );
-      // });
-
       it("Should throw ProjectionError columnOrder not number", () => {
         testProperties.columnOrder = "42";
         expectParseError(
