@@ -1,6 +1,6 @@
 {
   "name": "gabby-query-protocol-projection",
-  "version": "2.0.0-beta.0",
+  "version": "2.0.1-beta.0",
   "description": "Projection (Field Select) Lib",
   "main": "dist/index.js",
   "module": "dist/index.js",
