@@ -52,14 +52,8 @@ const validatePropertySortOrder = (
     );
   }
 
-  if (
-    properties.sortOrder === undefined ||
-    properties.sortOrder < -1 ||
-    properties.sortOrder > 1
-  ) {
-    errorMessages.push(
-      `'sortOrder' out of range (-1, 1). actual range: '${properties.sortOrder}')`
-    );
+  if (properties.sortOrder === undefined || properties.sortOrder === null) {
+    errorMessages.push(`invalid sortOrder: '${properties.sortOrder}')`);
   }
   return errorMessages;
 };
