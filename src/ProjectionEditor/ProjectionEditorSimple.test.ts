@@ -6,7 +6,7 @@ import { EXAMPLE_JSON_BLUE_SKIES } from "../external-files";
 import { ProjectableDictionaryFactory } from "../ProjectableSubjectDictionary";
 import { TProjectionItemProperties } from "./type";
 import { CONSTS } from "../common";
-import { TProjectionItemPropertiesJson } from "../../dist/ProjectionEditor";
+import type { TProjectionItemPropertiesJson } from "./type";
 
 const projectionBlueSkyJson = EXAMPLE_JSON_BLUE_SKIES.projectionJson;
 
