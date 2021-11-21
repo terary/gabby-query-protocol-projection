@@ -7,4 +7,4 @@ export type {
   TProjectionPropertiesUpdatable,
 } from "./type";
 
-export { ProjectionSimple as Projection } from "./ProjectionSimple";
+export { ProjectionEditorSimple as ProjectionEditor } from "./ProjectionEditorSimple";

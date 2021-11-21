@@ -1,3 +1,4 @@
+//cspell:ignore Projectable
 import type {
   TProjectionDictionary,
   TProjectionItemProperties,
@@ -9,10 +10,16 @@ export interface IProjectionEditor {
   addSubject(projection: TProjectionItemProperties): string;
 
   filterProjectionBySubjectId(subjectId: string): TProjectionDictionary;
+  filterProjection(
+    filter: (projectionItem: TProjectionItemProperties) => boolean
+  ): TProjectionItemProperties[];
 
   getProjectableSubjectsDictionary(): IProjectableSubjectDictionary;
 
-  // deprecated - use 'filterProjectionBySubjectId'
+  /**
+   * @deprecated - use 'filterProjectionBySubjectId'
+   * @param subjectId
+   */
   getSubProjectionBySubjectId(subjectId: string): TProjectionDictionary;
 
   getKeys(): string[];
@@ -23,11 +30,28 @@ export interface IProjectionEditor {
     property: keyof TProjectionItemProperties
   ): TProjectionDictionary;
 
+  getProjectedItemByProjectionKey(key: string): TProjectionItemProperties;
+
+  /**
+   * @deprecated - use 'getProjectedItemByProjectionKey'
+   * @param key
+   */
   getProjectionSubject(key: string): TProjectionItemProperties;
 
+  removeProjectionItem(key: string): void;
+
+  /**
+   * @deprecated - use 'removeProjectionItem'
+   */
   removeProjectionSubject(key: string): void;
 
+  /**
+   * @deprecated - use 'updateProjectionItem'
+   * @param key
+   * @param properties
+   */
   updateSubject(key: string, props: TProjectionPropertiesUpdatable): void;
+  updateProjectionItem(key: string, properties: TProjectionPropertiesUpdatable): void;
 
   toJson(): TProjectionItemProperties[];
 }

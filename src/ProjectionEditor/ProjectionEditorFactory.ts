@@ -1,5 +1,5 @@
 import { ProjectionError } from "../ProjectionError";
-import { ProjectionSimple } from "./ProjectionSimple";
+import { ProjectionEditorSimple } from "./ProjectionEditorSimple";
 import { IProjectionEditor } from "./IProjectionEditor";
 import { TProjectionItemPropertiesJson, TProjectionItemProperties } from "./type";
 import type { IExportToJson, IImportFromJson } from "../common";
@@ -29,7 +29,7 @@ const buildDefaultProjection = (subjectDictionary: IProjectableSubjectDictionary
   });
 };
 // prettier-ignore
-type ProjectionImportExportType = // rename to TProjectionImportExport if moving out of file
+type ProjectionImportExportType = 
   IImportFromJson<ProjectionEditorJson, IProjectionEditor> &
   IExportToJson<IProjectionEditor, ProjectionEditorJson>;
 
@@ -51,7 +51,7 @@ export const ProjectionEditorFactory: ProjectionImportExportType = {
         `Failed to parse json, expected array, received ${typeof json}`
       );
     }
-    const projection = new ProjectionSimple(projectableSubjects);
+    const projection = new ProjectionEditorSimple(projectableSubjects);
 
     projectableItems.forEach((projectionItem) => {
       const { hasError, errorMessages } = Validators.ValidateProjectionProperties(
@@ -63,7 +63,7 @@ export const ProjectionEditorFactory: ProjectionImportExportType = {
         throw new ProjectionError("Failed to parse json", errorMessages);
       }
 
-      projection.addSubject(projectionItem as TProjectionItemProperties);
+      projection.addProjectionItem(projectionItem as TProjectionItemProperties);
     });
     return projection as IProjectionEditor;
   },
